@@ -9,15 +9,21 @@ on:
         description: '架构'
         required: false
         default: 'linux/amd64,linux/arm64'
+      large_image:
+        description: '是否清理磁盘（大镜像时启用，会额外耗时 2-3 分钟）'
+        required: false
+        default: 'false'
 jobs:
   mirror:
     runs-on: ubuntu-latest
     steps:
       - name: Disk Space (Before Cleanup)
+        if: ${{ github.event.inputs.large_image == 'true' }}
         run: |
           echo "=== Disk usage before cleanup ==="
           df -h
       - name: Free Disk Space
+        if: ${{ github.event.inputs.large_image == 'true' }}
         uses: jlumbroso/free-disk-space@main
         with:
           android: true
@@ -27,6 +33,7 @@ jobs:
           docker-images: true
           swap-storage: true
       - name: Disk Space (After Cleanup)
+        if: ${{ github.event.inputs.large_image == 'true' }}
         run: |
           echo "=== Disk usage after cleanup ==="
           df -h
