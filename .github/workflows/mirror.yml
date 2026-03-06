@@ -13,6 +13,10 @@ jobs:
   mirror:
     runs-on: ubuntu-latest
     steps:
+            - name: Disk Space (Before Cleanup)
+                run: |
+                    echo "=== Disk usage before cleanup ==="
+                    df -h
       - name: Free Disk Space
         uses: jlumbroso/free-disk-space@main
         with:
@@ -22,6 +26,10 @@ jobs:
           large-packages: true
           docker-images: true
           swap-storage: true
+            - name: Disk Space (After Cleanup)
+                run: |
+                    echo "=== Disk usage after cleanup ==="
+                    df -h
       - name: Checkout
         uses: actions/checkout@v4
         with:
