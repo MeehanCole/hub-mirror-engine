@@ -23,8 +23,6 @@ jobs:
           swap-storage: true
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          repository: 'togettoyou/hub-mirror'
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
